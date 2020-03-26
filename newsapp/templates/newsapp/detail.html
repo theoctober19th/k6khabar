@@ -1,0 +1,19 @@
+{% extends 'newsapp/base.html' %}
+
+{% block main_content %}
+    <h1>{{post.title}}</h1>
+    <img src="{{post.header_image.url}}" style="width: 40%;">
+    <br>
+    {{post.content}}
+
+    <br>
+    <br>
+    <h2>Comments:</h2>
+    {% for comment in post.comments.all %}
+        By: {{comment.commented_by}}<br>
+        On: {{comment.commented_on}}<br>
+        Comment: {{comment.content}}
+        <br>
+        <br>
+    {% endfor %}
+{% endblock %}
