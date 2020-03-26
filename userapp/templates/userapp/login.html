@@ -1,4 +1,5 @@
-{% extends 'userapp/base.html' %} {% load static %} {% block main_content %}
+{% extends 'userapp/base.html' %} {% load static %} {% block title %} Login :
+K6Khabar {% endblock %} {% block main_content %}
 <form class="form-signin">
   <img
     class="mb-4"
@@ -7,15 +8,16 @@
     width="72"
     height="72"
   />
-  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-  <label for="inputEmail" class="sr-only">Email address</label>
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in to K6Khabar</h1>
+  <label for="inputEmail" class="sr-only">Username</label>
   <input
-    type="email"
+    type="text"
     id="inputEmail"
     class="form-control"
-    placeholder="Email address"
+    placeholder="Username"
     required
     autofocus
+    name="username"
   />
   <label for="inputPassword" class="sr-only">Password</label>
   <input
@@ -24,6 +26,7 @@
     class="form-control"
     placeholder="Password"
     required
+    name="password"
   />
   <div class="checkbox mb-3">
     <label> <input type="checkbox" value="remember-me" /> Remember me </label>
@@ -31,6 +34,6 @@
   <button class="btn btn-lg btn-primary btn-block" type="submit">
     Sign in
   </button>
-  <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+  <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </form>
 {% endblock %}
