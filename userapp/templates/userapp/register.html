@@ -44,11 +44,14 @@ K6Khabar {% endblock %} {% block main_content %}
   <input
     type="text"
     id="inputUsername"
-    class="form-control"
+    class="form-control {% if 'username' in errors %} is-invalid {% endif %}"
     placeholder="Username"
     required
     name="username"
   />
+  {% if 'username' in errors %}
+  <div class="invalid-feedback">{{errors.username}}</div>
+  {% endif %}
   <label for="inputPassword" class="sr-only">Password</label>
   <input
     type="password"

@@ -1,6 +1,7 @@
 {% extends 'userapp/base.html' %} {% load static %} {% block title %} Login :
 K6Khabar {% endblock %} {% block main_content %}
-<form class="form-signin">
+<form method="POST" class="form-signin">
+  {% csrf_token %}
   <img
     class="mb-4"
     src="{% static 'userapp/img/logo.png' %}"
