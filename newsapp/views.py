@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import datetime
 from django.contrib.auth.decorators import login_required
+import random
 
 from .models import PostModel, CategoryModel
 
@@ -12,13 +13,23 @@ from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 
 
+def get_featured_post(posts):
+    if len(posts) == 0:
+        return None
+    else:
+        num_of_posts = len(posts)
+        featured_post_index = random.randint(0, num_of_posts-1)
+        return posts[featured_post_index]
+
+
 def index(request):
-    posts = PostModel.objects.all()[:10]
+    posts = PostModel.objects.all().order_by(
+        'posted_on', 'title', 'posted_by')[:10]
     categories = CategoryModel.objects.all()[:5]
     context = {
         'posts': posts,
         'categories': categories,
-        'featured_post': posts[0] if len(posts) > 0 else None
+        'featured_post': get_featured_post(posts)
     }
     return render(request, 'newsapp/index.html', context)
 
@@ -41,7 +52,8 @@ def categorynews(request, id):
         context = {
             'posts': posts,
             'categories': categories,
-            'featured_post': posts[0] if len(posts) > 0 else None
+            'featured_post': get_featured_post(posts),
+            'current_category_id': id
         }
         return render(request, 'newsapp/index.html', context)
     else:
@@ -127,7 +139,9 @@ def edit_post_view(request, id):
 def search_view(request):
     categories = CategoryModel.objects.all()[:5]
     query = request.GET.get('query')
-    results = PostModel.objects.filter(title__icontains=query)
+    results_in_title = PostModel.objects.filter(title__icontains=query)
+    results_in_content = PostModel.objects.filter(content__icontains=query)
+    results = (results_in_content | results_in_title).distinct()
     context = {
         'posts': results,
         'search_query': query,

@@ -14,9 +14,10 @@
 </head>
 
 <body>
-  <h1 style="float:inline-start">
-    K6Khabar.com
+  <div>
+    <h1 style="display: inline-block">K6Khabar.com</h1>
     {% if request.user.is_authenticated %}
+    <p style="float: right;">Welcome, {{request.user.username}}! </p>
     <a href="{% url 'logout' %}"><button type="button" class="btn btn-primary" style="float: right; margin:4px">
         Logout
       </button></a>
@@ -28,7 +29,7 @@
         Register
       </button></a>
     {% endif %}
-  </h1>
+  </div>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'index' %}">Home</a>
@@ -39,7 +40,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         {% for category in categories %}
-        <li class="nav-item">
+        <li class="nav-item {% if current_category_id ==  category.id %} active {% endif %}">
           <a class="nav-link" href="{% url 'topic' category.id %}">
             {{category.name}}
           </a>
