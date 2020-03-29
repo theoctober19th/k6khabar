@@ -46,7 +46,7 @@ def registerview(request):
             errors['username'] = 'username already exists'
 
         if len(errors) > 0:
-            return render(request, 'userapp/register.html', context=errors)
+            return render(request, 'userapp/register.html', context={'errors': errors})
         else:
             user = User(username=username, password=password, email=email,
                         first_name=fname, last_name=lname, is_active=True)
